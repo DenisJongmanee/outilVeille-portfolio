@@ -1,0 +1,27 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "cheerio": "^1.0.0-rc.10",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "http": "^0.0.1-security",
+    "lodash": "^4.17.21",
+    "mongoose": "^6.2.6",
+    "node-fetch": "^3.2.0",
+    "nodemon": "^2.0.15",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "utf8": "^3.0.0"
+  }
+}
