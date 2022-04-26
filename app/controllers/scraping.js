@@ -62,9 +62,9 @@ const scraping01net = (search) => {
         
         for (let i = 0; i<$('article.art-body').length; i++) {
             try {
-                const date = new Date($('article.art-body')[i].children[3].children[3].children[7]?.attribs?.datetime 
-                    ? $('article.art-body')[i].children[3].children[3].children[7].attribs?.datetime
-                    : $('article.art-body')[i].children[3].children[5].children[7].attribs?.datetime);
+                const date = new Date($('article.art-body')[i].children[3].children[3].children[7].attribs.datetime 
+                    ? $('article.art-body')[i].children[3].children[3].children[7].attribs.datetime
+                    : $('article.art-body')[i].children[3].children[5].children[7].attribs.datetime);
                 const article = {
                     url: $('article.art-body')[i].children[1].children[1].attribs.href,
                     title: $('article.art-body')[i].children[3].children[1].attribs.title,
