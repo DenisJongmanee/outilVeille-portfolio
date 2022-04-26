@@ -43,7 +43,7 @@ exports.getData = (req, res, next) => {
                 index++
                 article.date = util.convertDate(article.date)
             })
-
+            console.log(resultList);
             // console.log(resultList);
             res.status(200).json({ listUrls: resultList });
 
@@ -62,9 +62,9 @@ const scraping01net = (search) => {
         
         for (let i = 0; i<$('article.art-body').length; i++) {
             try {
-                const date = new Date($('article.art-body')[i].children[3].children[3].children[7].attribs.datetime 
-                    ? $('article.art-body')[i].children[3].children[3].children[7].attribs.datetime
-                    : $('article.art-body')[i].children[3].children[5].children[7].attribs.datetime);
+                const date = new Date($('article.art-body')[i].children[3].children[3].children[7].attribs?.datetime 
+                    ? $('article.art-body')[i].children[3].children[3].children[7].attribs?.datetime
+                    : $('article.art-body')[i].children[3].children[5].children[7].attribs?.datetime);
                 const article = {
                     url: $('article.art-body')[i].children[1].children[1].attribs.href,
                     title: $('article.art-body')[i].children[3].children[1].attribs.title,
@@ -106,6 +106,7 @@ const scrapingLeMondeInformatique = (search) => {
                 console.log(error);
             }
         }
+        console.log(listUrls)
         resolve(listUrls);
     });
 };
@@ -187,7 +188,6 @@ const scrapingTheRegister = (search) => {
         let listUrls = [];
         const result = await rp({uri: `https://search.theregister.com/?q=${encodeURIComponent(search.toLowerCase())}&site=&sort=rel`, encoding: 'latin1'});
         const $ = cheerio.load(result);
-        console.log("TheRegister " . $('.rt-osr article').length);
         for (let i = 0; i<$('.rt-osr article').length; i++) {
             try {
                 const article = {
@@ -210,8 +210,7 @@ const scrapingTechRadar = (search) => {
     return new Promise(async (resolve, reject) => {
         let listUrls = [];
         const result = await rp({uri: `https://www.techradar.com/search?articleType=news&searchTerm=${encodeURIComponent(search.toLowerCase())}`, encoding: 'latin1'});
-        const $ = cheerio.load(result);
-        console.log("TechRadar " . $('.listingResult .content').length)     
+        const $ = cheerio.load(result);  
         for (let i = 0; i<$('.listingResult .content').length; i++) {
             try {
                 const article = {
