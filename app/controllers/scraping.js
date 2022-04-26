@@ -43,7 +43,6 @@ exports.getData = (req, res, next) => {
                 index++
                 article.date = util.convertDate(article.date)
             })
-            console.log(resultList);
             // console.log(resultList);
             res.status(200).json({ listUrls: resultList });
 
@@ -58,7 +57,6 @@ const scraping01net = (search) => {
         const $ = cheerio.load(result);
         
         let listUrls = [];
-        console.log("01net :" + $('article.art-body').length);
         
         for (let i = 0; i<$('article.art-body').length; i++) {
             try {
@@ -85,8 +83,6 @@ const scrapingLeMondeInformatique = (search) => {
         let listUrls = []
         const result = await rp({uri: `https://www.lemondeinformatique.fr/recherche/index.html?type=chrono&search=${search}`, encoding: 'latin1'});
         const $ = cheerio.load(result);
-        
-        console.log("LeMondeInfo :" + $('article.item').length);
         for (let i = 0; i<$('article.item').length; i++) {
             try {
                 
@@ -106,7 +102,6 @@ const scrapingLeMondeInformatique = (search) => {
                 console.log(error);
             }
         }
-        console.log(listUrls)
         resolve(listUrls);
     });
 };
@@ -120,14 +115,13 @@ const scrapingZDnet = (search) => {
         const result = await rp({uri: `https://www.zdnet.fr/rechercher/${encodeURIComponent(search.toLowerCase())}.htm`, encoding: 'latin1'});
         const $ = cheerio.load(result);
         if ($('#main .navSupplement').length === 0) {
-            console.log("sujet full recherche");
+ 
             console.log("ZDnet " . $('.river article.item').length);
             for (let i = 0; i<$('.river article.item').length; i++) {
                 try {
                     let date = $('.river article.item')[i].children[1].children[5].children[3].children[0].data.trim().split("  ")[0];
                     date = date.split(" ");
-                    console.log(date);
-
+                    
                     date[2] = util.convertMonth(utf8.decode(date[2]));
                     
                     const article = {
@@ -143,7 +137,7 @@ const scrapingZDnet = (search) => {
             }
 
         } else {
-            console.log("sujet dans leur base de données");
+           
             for (let i=0; i<30; i++) {
                 try {
                     const node = $('.river')[$('.river').length-1].children[i];
@@ -161,7 +155,7 @@ const scrapingZDnet = (search) => {
                     listUrls.push(article);
                 } catch(error) {
                     if (i%2 !== 0) {
-                        console.log(i);
+
                         console.log(error);
                     }
                 }
@@ -174,10 +168,10 @@ const scrapingZDnet = (search) => {
 const scrapingProgrammez = (search) => {
     return new Promise(async (resolve, reject) => {
         let listUrls = []
-        console.log("test");
+        
         const result = await rp({uri: `https://www.programmez.com/search/node/${encodeURIComponent(search.toLowerCase())}`, encoding: 'latin1'});
         const $ = cheerio.load(result);
-        console.log(result);
+       
         resolve(listUrls);
     });
 };
