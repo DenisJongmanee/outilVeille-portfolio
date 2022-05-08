@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({parameterLimit: 100000, limit: '500mb', extended:
 app.options('*', cors());
 
 app.use("/api/scraping", scrapingRoutes);
-app.use("/api/article", articleRoutes);
-app.use("/api/subject", subjectRoutes)
+// app.use("/api/article", articleRoutes);
+// app.use("/api/subject", subjectRoutes)
 
 module.exports = app;
