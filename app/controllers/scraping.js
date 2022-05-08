@@ -31,7 +31,6 @@ exports.getData = (req, res, next) => {
         })
     } else if (lang === 'fr') {
         scrapingFRURL(search).then(result => {
-            console.log("Liste urls envoyé");
             const resultList = [...result[0], ...result[1], ...result[2]];
             
             resultList.sort((a,b) => {
@@ -116,7 +115,7 @@ const scrapingZDnet = (search) => {
         const $ = cheerio.load(result);
         if ($('#main .navSupplement').length === 0) {
  
-            console.log("ZDnet " . $('.river article.item').length);
+
             for (let i = 0; i<$('.river article.item').length; i++) {
                 try {
                     let date = $('.river article.item')[i].children[1].children[5].children[3].children[0].data.trim().split("  ")[0];
