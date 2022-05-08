@@ -3,8 +3,8 @@ const bodyParser = require("body-parser");
 const cors = require('cors');
 
 const scrapingRoutes = require("./app/routers/scraping.router");
-const articleRoutes = require("./app/routers/article.router"); 
-const subjectRoutes = require("./app/routers/subject.router");
+// const articleRoutes = require("./app/routers/article.router"); 
+// const subjectRoutes = require("./app/routers/subject.router");
 
 const app = express();
 
